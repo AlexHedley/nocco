@@ -9,10 +9,15 @@ documentation generator.
 ## Run
 
 ```bash
-dotnet tool run nocco *.cs
+nocco *.cs
 ```
 
 ## Install
+
+### NuGet
+
+[![NuGet Version](https://img.shields.io/nuget/v/nocco.svg?logo=nuget)](https://www.nuget.org/packages/nocco/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/nocco?logo=nuget/)](https://www.nuget.org/packages/nocco/)
 
 ```bash
 dotnet tool install --global nocco
