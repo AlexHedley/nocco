@@ -1,7 +1,2 @@
-bin
-obj
-*.user
-*.suo
-packages
-docs
-_ReSharper*
+# macOS
+.DS_Store
