@@ -3,6 +3,12 @@
 // https://github.com/olivierlacan/keep-a-changelog
 // https://keepachangelog.com/en/1.0.0/
 
+## [0.3.0] - 2026-02-22
+
+### Added
+
+- Upgraded to .NET 10
+
 ## [0.2.0] - 2025-05-06
 
 ### Added
