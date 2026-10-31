@@ -3,6 +3,13 @@
 // https://github.com/olivierlacan/keep-a-changelog
 // https://keepachangelog.com/en/1.0.0/
 
+## [Unreleased]
+
+### Added
+
+- Unit, integration and mutation (Stryker) tests
+- `GenerateHtml` now awaited instead of `async void`
+
 ## [0.3.0] - 2026-02-22
 
 ### Added

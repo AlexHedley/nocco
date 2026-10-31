@@ -61,12 +61,12 @@ public class Nocco
         var lines = File.ReadAllLines(source);
         var sections = Parse(source, lines);
         Highlight(sections);
-        GenerateHtml(source, sections);
+        GenerateHtml(source, sections).GetAwaiter().GetResult();
     }
     
     // Given a string of source code, parse out each comment and the code that
     // follows it, and create an individual `Section` for it.
-    private static List<Section> Parse(string source, string[] lines) {
+    internal static List<Section> Parse(string source, string[] lines) {
         var sections = new List<Section>();
         var language = GetLanguage(source);
         var hasCode = false;
@@ -104,7 +104,7 @@ public class Nocco
     // Prepares a single chunk of code for HTML output and runs the text of its
     // corresponding comment through **Markdown**, using a C# implementation
     // called [MarkdownSharp](http://code.google.com/p/markdownsharp/).
-    private static void Highlight(List<Section> sections) {
+    internal static void Highlight(List<Section> sections) {
         var markdown = new MarkdownSharp.Markdown();
 
         foreach (var section in sections) {
@@ -116,7 +116,7 @@ public class Nocco
     // Once all of the code is finished highlighting, we can generate the HTML file
     // and write out the documentation. Pass the completed sections into the template
     // found in `Resources/Webpage.cshtml`
-    private static async void GenerateHtml(string source, List<Section> sections)
+    private static async Task GenerateHtml(string source, List<Section> sections)
     {
         int depth;
         var destination = GetDestination(source, out depth);
@@ -149,7 +149,7 @@ public class Nocco
             return output.ToHtmlString();
         });
         
-        File.WriteAllText(destination, html);
+        await File.WriteAllTextAsync(destination, html);
     }
 
     // A list of the languages that Nocco supports, mapping the file extension to
@@ -202,14 +202,14 @@ public class Nocco
     };
     
     // Get the current language we're documenting, based on the extension.
-    private static Language GetLanguage(string source) {
+    internal static Language GetLanguage(string source) {
         var extension = Path.GetExtension(source);
         return Languages.ContainsKey(extension) ? Languages[extension] : null;
     }
     
     // Compute the destination HTML path for an input source file path. If the source
     // is `Example.cs`, the HTML will be at `docs/example.html`
-    private static string GetDestination(string filepath, out int depth) {
+    internal static string GetDestination(string filepath, out int depth) {
         var dirs = Path.GetDirectoryName(filepath).Substring(1).Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
         depth = dirs.Length;
 
